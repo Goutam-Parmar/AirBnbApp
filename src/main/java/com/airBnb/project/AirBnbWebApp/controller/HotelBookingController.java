@@ -1,12 +1,10 @@
 package com.airBnb.project.AirBnbWebApp.controller;
 
 
-import com.airBnb.project.AirBnbWebApp.dto.BookingDto;
-import com.airBnb.project.AirBnbWebApp.dto.BookingRequest;
-import com.airBnb.project.AirBnbWebApp.dto.GuestDto;
+import com.airBnb.project.AirBnbWebApp.dto.*;
 import com.airBnb.project.AirBnbWebApp.service.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
+
 @RequestMapping("/bookings")
 public class HotelBookingController {
 
@@ -23,11 +21,13 @@ public class HotelBookingController {
 
 
     @PostMapping("/init")
+    @Operation(summary = "Initiate booking ", tags = {"Booking flow"})
     public ResponseEntity<BookingDto> initialiseBooking(@RequestBody BookingRequest bookingRequest){
      return ResponseEntity.ok(bookingService.initialiseBooking(bookingRequest));
     }
 
     @PostMapping("/{bookingId}/addGuests")
+    @Operation(summary = "Add guest Ids to the booking", tags = {"Booking floow"})
     public ResponseEntity<BookingDto> addGuests(@PathVariable Long bookingId,
                                                 @RequestBody List<GuestDto> guestDtoList){
         return ResponseEntity.ok(bookingService.addGuests(bookingId,guestDtoList));
@@ -39,11 +39,13 @@ public class HotelBookingController {
     }
 
     @PostMapping("/{bookingId}/cancel")
+    @Operation(summary = "Cancel the booking", tags = {"Booking Flow"})
     public ResponseEntity<Void> cancelBooking(@PathVariable Long bookingId){
         bookingService.cancelBooking(bookingId);
         return ResponseEntity.noContent().build();
     }
     @PostMapping("/{bookingId}/status")
+    @Operation(summary = "Check the status of the booking", tags = {"Booking Flow"})
     public ResponseEntity<Map<String,String>> getBookingStatus(@PathVariable Long bookingId){
 
         return ResponseEntity.ok(Map.of("status",bookingService.getBookingStatus(bookingId)));

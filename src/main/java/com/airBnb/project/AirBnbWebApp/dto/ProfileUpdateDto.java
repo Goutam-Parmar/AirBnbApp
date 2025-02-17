@@ -3,10 +3,11 @@ package com.airBnb.project.AirBnbWebApp.dto;
 import com.airBnb.project.AirBnbWebApp.entity.enums.Gender;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
-public class UserDto {
-    private Long id;
-    private String email;
+public class ProfileUpdateDto {
     private String name;
-    private Gender dateOfBirth;
+    private LocalDate dateOfBirth;
+    private Gender gender;
 }
